@@ -34,9 +34,10 @@ function get_sound_info($path){
 	$file_info = $getID3->analyze($path);
 	$size = number_format($file_info["filesize"], 2);
 	$time = number_format($file_info["playtime_seconds"], 2);
+	$bitrate = $file_info["audio"]["bitrate"];
 	// $size = size2mb($file_info["filesize"], 2);
 	// $time = $ThisFileInfo['playtime_seconds'];
-	return array("time"=>$time, "size"=>$size);
+	return array("time"=>$time, "size"=>$size, "bitrate"=>$bitrate);
 }
 
 

@@ -67,7 +67,7 @@ function get_background_data_lib() {
 	foreach ($types as $key => $value) {
 		$cur_back_path = $base_back_dir . "/" . $value["tag"];
 			if(is_dir($cur_back_path)){
-			$data = get_background_type_data($cur_back_path, $value["tag"]);
+			$data = get_background_single_data($cur_back_path, $value["tag"]);
 			$res[$value["tag"]] = $data;
 		}
 	}
@@ -75,7 +75,7 @@ function get_background_data_lib() {
 	return $res;
 }
 
-function get_background_type_data($path, $type) {
+function get_background_single_data($path, $type) {
 	global $base_dir;
 	global $g_id;
 	global $error_flag;
