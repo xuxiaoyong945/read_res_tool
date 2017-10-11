@@ -21,7 +21,7 @@ $background_res = get_mysql_data_by_result($background_result);
 
 $save_data = array();
 $save_data["type"] = get_background_data_type($background_res);
-$save_data["lib"] = get_background_data_lib($save_data, $base_back_dir);
+$save_data["lib"] = get_background_data_lib();
 
 //check background renamed
 $background_names = array();
@@ -29,7 +29,7 @@ foreach ($save_data["lib"] as $key => $value) {
 	foreach ($value as $k => $v) {
 		if(array_key_exists($v["name"], $background_names)) {
 			$error_flag = true;
-			echo ERROR_BACKGROUND_RENAMED . " " . $v["name"] . " " . $background_names[$v["name"]] . " : " . $key . "\n";
+			echo ERROR_BACKGROUND_RENAMED . " " . $v["name"] . " in " . $background_names[$v["name"]] . " : " . $key . "\n";
 		}else {
 			$background_names[$v["name"]] = $key;
 		}
@@ -41,7 +41,7 @@ if ($error_flag) {
 	exit();
 }
 
-save_data($save_path, $save_data);
+save_json_data($save_path, $save_data);
 
 echo ">>>>>>>>>> end get background json\n";
 
@@ -59,7 +59,9 @@ function get_background_data_type($data) {
 	return $res;
 }
 
-function get_background_data_lib($save_data, $base_back_dir) {
+function get_background_data_lib() {
+	global $save_data;
+	global $base_back_dir;
 	$res = array();
 	$types = $save_data["type"];
 	foreach ($types as $key => $value) {
@@ -74,6 +76,10 @@ function get_background_data_lib($save_data, $base_back_dir) {
 }
 
 function get_background_type_data($path, $type) {
+	global $base_dir;
+	global $g_id;
+	global $error_flag;
+	$res = array();
 	$images_name = get_path_dir_and_file($path, 2);
 
 	$back_str = "_icon.png";
@@ -81,12 +87,12 @@ function get_background_type_data($path, $type) {
 	foreach ($images_name as $key => $value) {
 		if(strlen($value) < 4) {
 			$error_flag = true;
-			echo ERROR_BACKGROUND_TYPE . " type:" . $type . " name:" . $name . "\n";
+			echo ERROR_BACKGROUND_TYPE . " type:" . $type . " name:" . $value . "\n";
 			continue;
 		}
 		if(substr($value, -4) != ".png") {
 			$error_flag = true;
-			echo ERROR_BACKGROUND_TYPE . " type:" . $type . " name:" . $name . "\n";
+			echo ERROR_BACKGROUND_TYPE . " type:" . $type . " name:" . $value . "\n";
 		}
 
 
