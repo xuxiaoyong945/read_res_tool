@@ -110,9 +110,9 @@ function get_sound_single_data($path, $type) {
 	 		$r["path"] = get_relative_path($cur_sound_path, $base_dir);
 	 		$r["len"] = $info["time"];
 	 		$r["size"] = $info["size"];
-	 		if($info["size"] != 3200) {
+	 		if($info["bitrate"] < 30000 || $info["bitrate"] > 38000) {
 	 			$error_flag = true;
-	 			echo ERROR_SOUND_BITRATE . " type:" . $type . " name:" . $name . " bitrate: " . $bitrate . "\n";
+	 			echo ERROR_SOUND_BITRATE . " type:" . $type . " name:" . $name . " bitrate: " . $info["bitrate"] . "\n";
 	 		}
 	 		array_push($res, $r);
 	 	}
