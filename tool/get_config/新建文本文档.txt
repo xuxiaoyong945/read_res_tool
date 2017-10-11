@@ -1,0 +1,16 @@
+sound.json {
+	名字
+	比特率
+	类型
+	整个sound是否重名	
+
+	大小
+}
+background.json{
+	整个background是否重名
+	名字
+	类型
+
+	大小
+}
+role.json
